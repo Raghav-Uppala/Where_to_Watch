@@ -25,10 +25,6 @@ export default {
     async getDetails (name) {
       let encodedName = encodeURI(name);
 
-      const url = "http://www.omdbapi.com/?i=tt3896198&apikey=f738db4b&t="+encodedName+"&plot=full";
-      
-      console.log(url)
-      
       if(this.data["posterPath"] != "") {
         this.img_link = "https://image.tmdb.org/t/p/w154/"+this.data["posterPath"];
       } else {

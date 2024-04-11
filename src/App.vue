@@ -28,14 +28,6 @@ export default {
       let countryCode = search[1]["code"];
       this.countryCode = countryCode
 
-      const url = 'https://streaming-availability.p.rapidapi.com/search/title?country='+countryCode+'&title='+msg+'&output_language=en&show_type=all';
-      const options = {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': '6b590f2004mshe4d55eecdd4ff03p1d421ejsn083e94b390ff',
-          'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
-        }
-      };
       console.log(options, url);
       fetch('https://thingproxy.freeboard.io/fetch/https://www.movieofthenight.com/api/search?query='+msg)
         .then(response => response.json())
