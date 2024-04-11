@@ -27,19 +27,20 @@ export default {
       let msg = encodeURI(search[0]);
       let countryCode = search[1]["code"];
       this.countryCode = countryCode
-
+      // console.log(msg);
       fetch('https://api.allorigins.win/get?url='+encodeURIComponent('https://www.movieofthenight.com/api/search?query='+msg))
         .then(response => response.json())
         .then(data => JSON.parse(data.contents))
         .then(json => this.search = json)
         .then( data => {
-          let counter = 100
+          console.log("data", data);
+          let counter = 0
           for (let i in data["results"]) {
-            if(counter == 0) {
+            if(counter == 100) {
               break;
             }
             let info = data["results"][i];
-            console.log(i, info);
+            // console.log(i, info);
             
             let type
             if (info[0] == 's') {
@@ -49,18 +50,25 @@ export default {
             }
             let id = info.replace(/[^\d-]/g, '');
             
-            console.log(id, type)
+            // console.log(type, id, counter)
+            // console.log(id, type)
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.movieofthenight.com/api/'+type+'/'+id+'/en')}`)
               .then(respone => respone.json())
               .then(data => {
-                let resp = JSON.parse(data.contents)[type];
-                resp["type"] = type;
-                this.data.results[resp["title"]] = resp;
+                console.log('counter', counter)
+                counter += 1
+                let data_json = JSON.parse(data.contents);
+                if(data_json[type] === undefined) {
+                  console.log("no results", id, type)
+                } else {
+                  let resp = data_json[type]
+                  resp["type"] = type;
+                  this.data.results[resp["title"]] = resp;
+                }
               });
-            counter -= 1;
           }
           this.data.result = true;
-          console.log(this.data.result);
+          // console.log(this.data.result);
           // try {
           //   fetch(url, options).then(respone => respone.json()).then(result => this.data = result)
           // } catch (error) {

@@ -57,7 +57,7 @@ export default {
       if(this.data['streamingInfo'] != {}) {
         for (let service in this.data['streamingInfo']) {
           if (code in this.data['streamingInfo'][service]) {
-            console.log(services)
+            // console.log(services)
             services[service] = this.data['streamingInfo'][service][code]
             services[service]['service'] = service
           }
