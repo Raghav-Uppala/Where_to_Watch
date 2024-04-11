@@ -28,7 +28,6 @@ export default {
       let countryCode = search[1]["code"];
       this.countryCode = countryCode
 
-      console.log(options, url);
       fetch('https://thingproxy.freeboard.io/fetch/https://www.movieofthenight.com/api/search?query='+msg)
         .then(response => response.json())
         .then(json => this.search = json)

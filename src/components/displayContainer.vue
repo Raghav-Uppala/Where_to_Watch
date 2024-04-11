@@ -22,8 +22,8 @@ export default {
     dialogBox
   },
   methods: {
-    async getDetails (name) {
-      let encodedName = encodeURI(name);
+    async getDetails () {
+      // let encodedName = encodeURI(name);
 
       if(this.data["posterPath"] != "") {
         this.img_link = "https://image.tmdb.org/t/p/w154/"+this.data["posterPath"];
@@ -72,7 +72,7 @@ export default {
     countryCode: String,
   },
   beforeMount() {
-    this.getDetails(this.data.title)
+    this.getDetails()
   }
 }
 </script>
