@@ -28,11 +28,11 @@ export default {
       let countryCode = search[1]["code"];
       this.countryCode = countryCode
 
-      fetch('https://thingproxy.freeboard.io/fetch/https://www.movieofthenight.com/api/search?query='+msg)
+      fetch('https://api.allorigins.win/get?url='+encodeURIComponent('https://www.movieofthenight.com/api/search?query='+msg))
         .then(response => response.json())
+        .then(data => JSON.parse(data.contents))
         .then(json => this.search = json)
         .then( data => {
-          // console.log(data);
           let counter = 100
           for (let i in data["results"]) {
             if(counter == 0) {
