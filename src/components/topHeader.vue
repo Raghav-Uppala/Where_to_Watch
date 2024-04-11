@@ -1,7 +1,7 @@
 <template>
   <div class="navbar bg-base-100">
       <div class="flex-initial w-">
-        <a class="btn btn-ghost text-xl">Where to Watch</a>
+        <a class="btn btn-ghost text-xl" @onclick="reset">Where to Watch</a>
       </div>
       <div sytle="justify-self:center;">
         <div class="flex-initial gap-10 ">
@@ -26,6 +26,9 @@ export default {
   methods: {
     onEnter (message) {
         this.$emit('onEnter', [message, this.country])
+    },
+    reset() {
+      this.$emit('reset', true)
     },
     onChange() {
       this.$emit('code', this.country)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <topHeader @onEnter="value" @code="code"></topHeader>
+    <topHeader @onEnter="value"></topHeader>
     <div v-if="this.data.result != false" id="grid" style="justify-items:center;">
       <div v-for="(item, index) in this.data.results" :key="index">  
         <displayContainer :data=item :countryCode=countryCode>/</displayContainer>
@@ -55,7 +55,6 @@ export default {
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.movieofthenight.com/api/'+type+'/'+id+'/en')}`)
               .then(respone => respone.json())
               .then(data => {
-                console.log('counter', counter)
                 counter += 1
                 let data_json = JSON.parse(data.contents);
                 if(data_json[type] === undefined) {
@@ -63,7 +62,7 @@ export default {
                 } else {
                   let resp = data_json[type]
                   resp["type"] = type;
-                  this.data.results[resp["title"]] = resp;
+                  this.data.results[resp["imdbID"]] = resp;
                 }
               });
           }
