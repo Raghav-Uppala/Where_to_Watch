@@ -1,15 +1,17 @@
 <template>
-  <dialog :id="'details_modal_'+ this.data['imdbID']" class="modal">
-    <div class="modal-box w-8/12 max-w-5xl">
+  <dialog style="padding:;" :id="'details_modal_'+ this.imdbID" class="modal swiper-no-swiping">
+    <div class="modal-box w-auto max-w-5xl modal-bottom sm:modal-middle">
       <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
       <div class="flex">
-        <img :src=img_link>
+        <figure v-if="windowWidth > 1000" width="300px">
+          <img :src=img_link style="width:300px;">
+        </figure>
         <div style="margin-left:2vw;">
-          <h2 class="text-4xl">{{this.data['title']}}</h2>
+          <h2 class="text-4xl">{{this.title}}</h2>
           <br>
-          <div style="font-weight:bold;">Rating: {{this.rating}} • Genre(s):<span v-for="(genre,index) in this.data['genres']" :key="index" style="padding-left:0.4rem;">{{this.genres[genre]}}</span> <span v-if="this.data['type'] == 'movie'"> • {{this.data["year"]}} • Run time: {{this.data["runtime"]}}</span><span v-else> • {{this.data['firstAirYear']}} - {{this.data['lastAirYear']}} </span></div>
+          <div style="font-weight:bold;"><span>{{this.certification}}</span>Rating: {{this.rating}} • Genre(s):<span v-for="(genre,index) in this.data['genres']" :key="index" style="padding-left:0.4rem;">{{this.genres[genre]}}</span> <span v-if="this.data['type'] == 'movie'"> • {{this.data["year"]}} • Run time: {{this.data["runtime"]}}</span><span v-else> • {{this.data['firstAirYear']}} - {{this.data['lastAirYear']}} </span></div>
           <p style="margin-top:1vw;">{{this.plot}}</p>
           <br>
           <div v-if="this.streamingAvailable(this.countryCode) != false">
@@ -24,6 +26,9 @@
         </div>
       </div>
     </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
   </dialog>
 </template>
 
@@ -35,7 +40,11 @@ export default {
     rating: "unknown",
     plot: "unknown",
     services: [],
-    genres: {"1":"Biography","2":"Film Noir","3":"Game Show","4":"Musical","5":"Sport","6":"Short","7":"Adult","12":"Adventure","14":"Fantasy","16":"Animation","18":"Drama","27":"Horror","28":"Action","35":"Comedy","36":"History","37":"Western","53":"Thriller","80":"Crime","99":"Documentary","878":"Science Fiction","9648":"Mystery","10402":"Music","10749":"Romance","10751":"Family","10752":"War","10763":"News","10764":"Reality","10767":"Talk Show"}
+    genres: {"1":"Biography","2":"Film Noir","3":"Game Show","4":"Musical","5":"Sport","6":"Short","7":"Adult","12":"Adventure","14":"Fantasy","16":"Animation","18":"Drama","27":"Horror","28":"Action","35":"Comedy","36":"History","37":"Western","53":"Thriller","80":"Crime","99":"Documentary","878":"Science Fiction","9648":"Mystery","10402":"Music","10749":"Romance","10751":"Family","10752":"War","10763":"News","10764":"Reality","10767":"Talk Show"},
+    certification: '',
+    imdbID: '',
+    title: '',
+    windowWidth: window.innerWidth
   }),
   props: {
     data: Object,
@@ -56,6 +65,7 @@ export default {
       let services = {}
       if(this.data['streamingInfo'] != {}) {
         for (let service in this.data['streamingInfo']) {
+          // console.log(this.data['streamingInfo'][service])
           if (code in this.data['streamingInfo'][service]) {
             // console.log(services)
             services[service] = this.data['streamingInfo'][service][code]
@@ -70,13 +80,21 @@ export default {
     }
   },
   beforeMount() {
-    if(this.data["posterPath"] != "") {
-      this.img_link = "https://image.tmdb.org/t/p/w154/"+this.data["posterPath"];
+    if(this.data["posterPath"] != "" && this.data["posterPath"] != undefined) {
+      this.img_link = "https://image.tmdb.org/t/p/original/"+this.data["posterPath"];
     } else {
       this.img_link = ""
     }
     this.rating = (this.data["imdbRating"]/10).toString();
+    // this.certification = this.data["certification"];
+    // console.log(this.certification)
     this.plot = this.data["overview"];
+    this.imdbID = this.data['imdbID'];
+    if(this.data['title'] !== undefined) {
+      this.title = this.data['title'];
+    } else if (this.data['primary_title'] !== undefined) {
+      this.title = this.data['primary_title'];
+    }
   }
 }
 </script>
