@@ -2,8 +2,9 @@
   <div>
     <dialogBox :data="this.data" :countryCode="countryCode"></dialogBox>
     <div class="card lg:card-side  w-96 bg-neutral shadow-xl flex-initial" >
-      <figure v-if="img_link != ''" class="card_figure" :onclick="'details_modal_'+ this.imdbID + '.showModal()'">
-        <img :src=img_link :alt='this.data["title"]' />
+      <figure  class="card_figure" :onclick="'details_modal_'+ this.imdbID + '.showModal()'">
+        <img  :src=img_link :alt='this.data["title"]'/>
+        <!-- <img v-else :src="" :alt='this.data["title"]'/> -->
         <span class="rating swiper-no-swiping">{{this.rating}}</span>
       </figure>
       <div class="card-body swiper-no-swiping" style="width:60%;max-height: 231px;">
@@ -33,7 +34,10 @@ export default {
       } else if (this.data['posters'] != undefined) {
         this.img_link = this.data['posters'][0]['url']
       } else {
-        this.img_link = this.data['imdbID']
+        this.img_link = 'https://placehold.co/154x231/60656b/FFF?text=No+Poster'
+        if(window.innerWidth < 1000) {
+          this.img_link = 'https://placehold.co/384x576/60656b/FFF?text=No+Poster'
+        }
       }
       this.rating = (this.data["imdbRating"]/10).toString();
       if(this.data["overview"] !== undefined) {
@@ -51,6 +55,10 @@ export default {
       } else if (this.data['primary_title'] !== undefined) {
         this.title = this.data['primary_title'];
       }
+      if(this.title.length > 40) {
+        console.log('here')
+        this.title = this.title.substring(0,40) + "...";
+      }
       this.imdbID = this.data['imdbID'];
       for (let i in this.data['genres']) {
         this.genres += ' '
@@ -59,7 +67,7 @@ export default {
     }
   },
   data: () => ({
-    img_link: "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
+    img_link: "",
     rating: "unknown",
     plot: "unknown",
     services: [],
@@ -114,6 +122,12 @@ export default {
   .card_figure {
     width:auto;
   }
+  .card-actions {
+    display: none;
+  }
+}
+.modal {
+  width:100vw;
 }
 
 </style>

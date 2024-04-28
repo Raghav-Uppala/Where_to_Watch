@@ -1,7 +1,7 @@
 <template>
   <div>
     <topHeader @routeChange="route" @onEnter="value"></topHeader>
-    <router-view :countryCode="this.countryCode" :data="this.data" :RAPIDAPIKEY="this.RAPIDAPIKEY"></router-view>
+    <router-view :key="$route.fullPath" :countryCode="this.countryCode" :data="this.data" :RAPIDAPIKEY="this.RAPIDAPIKEY"></router-view>
   </div>
 </template>
 
@@ -24,12 +24,11 @@ export default {
       let msg = encodeURIComponent(search[0]);
       apicalls.queryList(msg)
         .then(res => {
-          this.data['result'] = true
+          this.data = {result: false, results: {}}
           for (let i in res['results']) {
             apicalls.mediaInformationMoN(res['results'][i])
               .then(result => {
                 if(result['result'] !== 0){
-                  console.log(result)
                   let type;
                   if (res['results'][i][0] == 's') {
                     type = 'series'
@@ -40,6 +39,7 @@ export default {
                   this.data['results'][result[type]['imdbID']]['type'] = type
                 }
               })
+          this.data['result'] = true
           }
         })
       // let countryCode = search[1]["code"];

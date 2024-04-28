@@ -12,12 +12,8 @@
         :width="400"
         :slides-per-view="auto"
         navigation
-        centeredSlides="true"
-        centeredSlidesBounds="true"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
-        <swiper-slide v-for="(item, index) in this.popMovieData.results.items" :key="index">
+        <swiper-slide class="swiper_slide" v-for="(item, index) in this.popMovieData.results.items" :key="index">
           <displayContainer :data=item :countryCode=countryCode>/</displayContainer>
         </swiper-slide>
       </swiper>
@@ -35,12 +31,8 @@
         :width="400"
         :slides-per-view="auto"
         navigation
-        centeredSlides="true"
-        centeredSlidesBounds="true"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
-        <swiper-slide v-for="(item, index) in this.popSeriesData.results.items" :key="index">
+        <swiper-slide class="swiper_slide" v-for="(item, index) in this.popSeriesData.results.items" :key="index">
           <displayContainer :data=item :countryCode=countryCode>/</displayContainer>
         </swiper-slide>
       </swiper>
@@ -71,15 +63,7 @@ export default {
     RAPIDAPIKEY: String
   },
   setup() {
-      const onSwiper = (swiper) => {
-        console.log(swiper);
-      };
-      const onSlideChange = () => {
-        console.log('slide change');
-      };
       return {
-        onSwiper,
-        onSlideChange,
         modules: [Navigation, Pagination, Scrollbar, A11y],
       };
   },
@@ -237,6 +221,8 @@ export default {
 @media only screen and (max-width: 1000px) {
   .swiper {
     height:795px;
+    margin-left:5px;
+    left:5px;
   }
 }
 </style>
