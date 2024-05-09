@@ -176,6 +176,13 @@ let apicalls = {
     return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.themoviedb.org/3/find/${imdbID}?api_key=${encodeURIComponent(TMDBAPIKEY)}&external_source=imdb_id`)}`)
       .then(response => response.json())
       .then(data => JSON.parse(data.contents))
+  },
+  getCountry (position) {
+    // console.log(position)
+    let lat = position["coords"]["latitude"]
+    let lon = position["coords"]["longitude"]
+    return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+      .then(res => res.json())
   }
 }
 

@@ -23,6 +23,7 @@
 <script>
 import logoSVG from './logoSVG.vue'
 import countryData from "../assets/countryData.json"
+import apicalls from '../apicalls.js'
 
 export default {
   name: 'topHeader',
@@ -31,7 +32,7 @@ export default {
   },
   methods: {
     onEnter (message) {
-        this.$emit('onEnter', [message, this.country])
+      this.$emit('onEnter', [message, this.country])
     },
     reset() {
       this.$emit('reset', true)
@@ -45,22 +46,29 @@ export default {
     },
     onResize() {
       this.windowWidth = window.innerWidth
+    },
+    showPosition(position) {
+      apicalls.getCountry(position)
+        .then(res => {
+          if (res['address']["country_code"] in countryData){
+            document.getElementById("countrySelector").value = res['address']["country_code"]
+          }
+        })
     }
-
   },
   data: () => ({
     codes: countryData,
-    country: { "code": "in", "name": "India" },
+    country: { "code": "us", "name": "United States" },
     windowWidth: window.innerWidth
   }),
-  // beforeMount () {
-  //   this.getCodes()
-  // },
+  beforeMount () {
+    navigator.geolocation.getCurrentPosition(this.showPosition)
+  },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    document.getElementById("countrySelector").value = "in"
+    document.getElementById("countrySelector").value = "us"
   },
   beforeUnmount() { 
     window.removeEventListener('resize', this.onResize); 

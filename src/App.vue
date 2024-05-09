@@ -124,7 +124,7 @@ export default {
     search: {},
     data: {result: false, results:{}},
     popularMovies: {result: false, results:{}},
-    countryCode: 'in',
+    countryCode: 'us',
     name: '',
     capital: ''
   }),
