@@ -6,7 +6,7 @@
     </div>
     <div v-if="this.popMovieData.result != false" style="align-items:center;">
       <swiper
-        class="swiper"
+        class="swiper1"
         style="align-items:center;"
         :modules="modules"
         :width="400"
@@ -25,7 +25,7 @@
     </div>
     <div v-if="this.popSeriesData.result != false" style="align-items:center;">
       <swiper
-        class="swiper"
+        class="swiper2"
         style="align-items:center;"
         :modules="modules"
         :width="400"
@@ -43,7 +43,7 @@
 <script>
 import displayContainer from './displayContainer.vue'
 import apicalls from '../apicalls.js'
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
@@ -64,7 +64,7 @@ export default {
   },
   setup() {
       return {
-        modules: [Navigation, Pagination, Scrollbar, A11y],
+        modules: [Navigation, Pagination, Scrollbar, A11y, Keyboard],
       };
   },
   methods: {
@@ -188,11 +188,14 @@ export default {
           }
           this.popSeriesData['result'] = true
       })
-    },
+    }
   },
+  // watch: {
+  //   }
+  // }
   data : () => ({
     popSeriesData: {result: false, results:{}},
-    popMovieData: { "result": true, "results": {}}
+    popMovieData: { "result": true, "results": {}},
   }),
   beforeMount() {
     this.getPopularMovies()

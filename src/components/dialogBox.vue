@@ -14,15 +14,16 @@
           <div style="font-weight:bold;"><span>{{this.certification}}</span>Rating: {{this.rating}} • Genre(s):<span v-for="(genre,index) in this.data['genres']" :key="index" style="padding-left:0.4rem;">{{this.genres[genre]}}</span> <span v-if="this.data['type'] == 'movie'"> • {{this.data["year"]}} • Run time: {{this.data["runtime"]}}</span><span v-else> • {{this.data['firstAirYear']}} - {{this.data['lastAirYear']}} </span></div>
           <p style="margin-top:1vw;">{{this.plot}}</p>
           <br>
-          <div v-if="this.streamingAvailable(this.countryCode) != false">
+          <div>
             <p>Where to Watch:</p>
             <div class="flex justify-center">
               <a style="width:64px; margin-left:1rem;" v-for="(service, index) in this.streamingAvailable(this.countryCode)" :key="index" :href="service['link']"><img :src="this.getServiceLink(service['service'])"><p style="font-size:10px; text-align: center;">{{service["streamingType"]}} {{service["quality"]}}</p></a>
+              <router-link :to="{ path: '/stream', query: { id: this.data['id'], imdb: this.imdbID, type: this.data['type'] }}"><img src="../assets/vidapi-logo-svg.png" class="vidsrc"></router-link>
             </div>
           </div>
-          <div v-else>
+          <!-- <div v-else>
             <p>Not avialable to stream</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -98,3 +99,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.vidsrc {
+  /* background-color:white; */
+  background-image:url('../assets/vidapi-logo-svg.png');
+  height:64px;
+}
+</style>

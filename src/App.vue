@@ -1,21 +1,19 @@
 <template>
   <div>
-    <topHeader @routeChange="route" @onEnter="value"></topHeader>
-    <router-view :key="$route.fullPath" :countryCode="this.countryCode" :data="this.data" :RAPIDAPIKEY="this.RAPIDAPIKEY"></router-view>
+    <topHeader @routeChange="route" @onEnter="value" @code="code"></topHeader>
+    <router-view :countryCode="this.countryCode" :data="this.data" :RAPIDAPIKEY="this.RAPIDAPIKEY"></router-view>
   </div>
 </template>
 
 <script>
 import topHeader from './components/topHeader.vue'
 import apicalls from './apicalls.js'
-// import displayContainer from './components/displayContainer.vue'
 
 
 export default {
   name: 'App',
   components: {
     topHeader
-    // displayContainer
  ,},
   methods: {
     value (search) {

@@ -12,6 +12,7 @@
         <p style="font-size:15px;overflow-wrap: normal">Genre(s):<b>{{this.genres}}</b></p>
         <p v-if="this.data['type'] == 'movie'">  Run time: <b>{{this.data["runtime"]}} min</b></p>
         <p style="font-size:15px" v-if="this.data['type'] == 'series'"> Seasons: <b>{{this.data['seasons']}}</b></p>
+        <!-- <p>Year: <b><span v-if="this.data['type'] == 'movie'">{{this.data["year"]}}</span><span v-else> {{this.data['firstAirYear']}} - {{this.data['lastAirYear']}}</span></b></p> -->
         <div class="card-actions justify-end" style="margin-top: auto;">
           <button class="btn btn-sm btn-primary" :onclick="'details_modal_'+ this.imdbID + '.showModal()'">More details</button>
         </div>
