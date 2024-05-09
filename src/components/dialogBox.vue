@@ -15,11 +15,12 @@
           <p style="margin-top:1vw;">{{this.plot}}</p>
           <br>
           <div>
+            <!-- <img style="height:50px;" src="../assets/play-button.png"> -->
             <p>Where to Watch:</p>
             <div class="flex justify-center">
               <a style="width:64px; margin-left:1rem;" v-for="(service, index) in this.streamingAvailable(this.countryCode)" :key="index" :href="service['link']"><img :src="this.getServiceLink(service['service'])"><p style="font-size:10px; text-align: center;">{{service["streamingType"]}} {{service["quality"]}}</p></a>
-              <router-link :to="{ path: '/stream', query: { id: this.data['id'], imdb: this.imdbID, type: this.data['type'] }}"><img src="../assets/vidapi-logo-svg.png" class="vidsrc"></router-link>
             </div>
+            <router-link class="flex justify-center" style="margin-top:1.5rem;" :to="{ path: '/stream', query: { id: this.data['id'], imdb: this.imdbID, type: this.data['type'] }}"><div style="display:flex;align-items: center;"><p style="margin-right:0.5rem;">click to play:</p> <img src="../assets/play-button.png" style="height:50px;"></div></router-link>
           </div>
           <!-- <div v-else>
             <p>Not avialable to stream</p>

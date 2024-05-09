@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100">
+  <div class="navbar">
     <div class="flex-initial w-">
       <router-link to="/" class="btn btn-ghost text-xl" @onclick="reset"><logoSVG width="50px" height="40px" viewBox="0 0 90 90"></logoSVG><span v-if="this.windowWidth > 1000">Where to Watch</span></router-link>
     </div>

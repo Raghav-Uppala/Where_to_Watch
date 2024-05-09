@@ -27,8 +27,8 @@
       </div>
     </div>
     <br>
-    <div style="margin-top:10px;" class="flex" v-if="this.dataMoM != {}">
-      <div style="margin-left:2vw;">
+    <div style="width:90vw;margin:auto;margin-top:10px;" class="flex card bg-neutral  shadow-xl" v-if="this.dataMoM != {}">
+      <div style="margin-left:2vw;" class="card-body">
         <h2 class="text-4xl">{{this.title}}</h2>
         <br>
         <div style="font-weight:bold;"><span>{{this.certification}}</span>Rating: {{this.rating}} • Genre(s):<span v-for="(genre,index) in this.dataMoM['genres']" :key="index" style="padding-left:0.4rem;">{{this.genres[genre]}}</span> <span v-if="this.dataMoM['type'] == 'movie'"> • {{this.dataMoM["year"]}} • Run time: {{this.dataMoM["runtime"]}}</span><span v-else> • {{this.dataMoM['firstAirYear']}} - {{this.dataMoM['lastAirYear']}} </span></div>

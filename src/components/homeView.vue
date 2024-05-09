@@ -18,7 +18,7 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="divider"></div>
+    <!-- <div class="divider"></div> -->
     <div style="width:90%; margin:auto; margin-left:10px;">
       <h2 class="mb-0 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl sm:text-6xl dark:text-white">Popular TV-Series</h2>
       <br>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{'background-image': `url(${require('@/assets/bg2.svg')})`, 'background-size': '100% 100%'}">
     <topHeader @routeChange="route" @onEnter="value" @code="code"></topHeader>
     <router-view :countryCode="this.countryCode" :data="this.data" :RAPIDAPIKEY="this.RAPIDAPIKEY"></router-view>
   </div>
@@ -127,9 +127,7 @@ export default {
     countryCode: 'us',
     name: '',
     capital: ''
-  }),
-  beforeMount () {
-  }
+  })
 }
 </script>
 
@@ -139,5 +137,8 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   grid-gap: 5px;
   row-gap: 1em;
+}
+.body {
+  background-image: url('./assets/bg2.svg');
 }
 </style>
