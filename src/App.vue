@@ -9,6 +9,7 @@
 import topHeader from './components/topHeader.vue'
 import apicalls from './apicalls.js'
 
+alert("use https://stream-hunt.vercel.app/ where-to-watch is deprecated")
 
 export default {
   name: 'App',
